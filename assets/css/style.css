@@ -526,3 +526,48 @@ h3 {
     height: 210px;
   }
 }
+.project-thumb {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-thumb.has-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(5, 6, 8, 0.72),
+      rgba(5, 6, 8, 0.08)
+    );
+  pointer-events: none;
+}
+
+.project-thumb.has-image span {
+  display: none;
+}
+
+.modal-media {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-media.has-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(5, 6, 8, 0.72),
+      rgba(5, 6, 8, 0.05)
+    );
+  pointer-events: none;
+}
