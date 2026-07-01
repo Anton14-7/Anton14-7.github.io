@@ -26,6 +26,7 @@ const projects = [
     tools: "Houdini · Blender · Nuke",
     year: "2025",
     initials: "GGB",
+    thumb: "assets/img/green-goblin-bomb-thumb.jpg",
     summary: {
       en: "A cinematic explosion sequence inspired by Spider-Man: No Way Home, combining RBD fracture, Pyro fire and compositing.",
       es: "Secuencia de explosión cinematográfica inspirada en Spider-Man: No Way Home, combinando fractura RBD, fuego con Pyro y composición."
@@ -530,22 +531,25 @@ function renderProjects() {
     article.className = "project-card";
     article.setAttribute("tabindex", "0");
 
-    article.innerHTML = `
-      <div class="project-thumb">
-        <span>${project.initials}</span>
-      </div>
+const thumbStyle = project.thumb ? `style="background-image: url('${project.thumb}')"` : "";
+const thumbClass = project.thumb ? "project-thumb has-image" : "project-thumb";
 
-      <div class="project-body">
-        <p class="project-category">${project.category}</p>
-        <h3>${project.title}</h3>
-        <p>${project.summary[currentLanguage]}</p>
+article.innerHTML = `
+  <div class="${thumbClass}" ${thumbStyle}>
+    <span>${project.initials}</span>
+  </div>
 
-        <div class="project-meta">
-          <span>${project.tools}</span>
-          <span>${project.year}</span>
-        </div>
-      </div>
-    `;
+  <div class="project-body">
+    <p class="project-category">${project.category}</p>
+    <h3>${project.title}</h3>
+    <p>${project.summary[currentLanguage]}</p>
+
+    <div class="project-meta">
+      <span>${project.tools}</span>
+      <span>${project.year}</span>
+    </div>
+  </div>
+`;
 
     article.addEventListener("click", () => openProject(project.id));
 
@@ -565,7 +569,15 @@ function openProject(projectId) {
 
   activeProject = project;
 
-  modalMedia.innerHTML = `<span>${project.initials}</span>`;
+modalMedia.classList.remove("has-image");
+modalMedia.style.backgroundImage = "";
+modalMedia.innerHTML = `<span>${project.initials}</span>`;
+
+if (project.thumb) {
+  modalMedia.classList.add("has-image");
+  modalMedia.style.backgroundImage = `url('${project.thumb}')`;
+  modalMedia.innerHTML = "";
+}
   modalCategory.textContent = project.category;
   modalTitle.textContent = project.title;
 
